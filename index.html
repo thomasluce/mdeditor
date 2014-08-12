@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Markdown editor testing</title>
+    <style type="text/css">
+      .row {
+        width: 1024px;
+        height: 100%;
+        min-height: 768px;
+        position: relative;
+      }
+
+      .row .col {
+        display: inline-block;
+        margin: 0;
+        padding: 10px 0 10px 0;
+        width: 492px;
+        position: relative;
+        vertical-align: top;
+        height: 100%;
+        min-height: 768px;
+      }
+
+      #md, #html {
+        height: 100%;
+        min-height: 768px;
+      }
+
+      #md {
+        border: 1px solid #222;
+      }
+
+      #md textarea {
+        min-height: 756px;
+        width: 482px;
+        border: 0;
+      }
+
+      #md textarea:active, #md textarea:focus {
+        border: 0;
+        outline: 0;
+      }
+
+      #html {
+        overflow: auto;
+        border: 0;
+        margin-left: -4px;
+        border: 1px solid #222;
+        border-left: 0px solid;
+        z-index: 1;
+      }
+      #html > * { margin-top: 0; }
+
+      #collapse {
+        position: absolute;
+        height: 32px;
+        width: 32px;
+        top: 10px;
+        left: 954px;
+        z-index: 2;
+        text-align: center;
+        line-height: 32px;
+        vertical-align: middle;
+        border: 1px solid #ddd;
+        background-color: rgba(256,256,256,0.7);
+      }
+      #collapse:hover {
+        cursor: pointer;
+        border: 1px solid #222;
+        background-color: white;
+      }
+    </style>
+    <script type="text/javascript" src="/markdown.min.js"></script>
+  </head>
+  <body>
+    <div class="row">
+      <div id="collapse">&#9654;</div>
+      <div class="col">
+        <div id="md"><textarea placeholder="*markdown* goes __here__"></textarea></div>
+      </div>
+
+      <div class="col">
+        <div id="html"><em>markdown</em> goes <b>here</b></div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var text = document.getElementById('md').childNodes[0];
+      var html = document.getElementById('html');
+      var collapseHandle = document.getElementById('collapse');
+
+      function updateHTML() {
+        var stuff = markdown.toHTML(text.value);
+        html.innerHTML = stuff;
+      }
+
+      var scrolled = false;
+      function updateHTMLScroll(e) {
+        e.preventDefault();
+        if(scrolled) {
+          scrolled = false;
+          return true;
+        }
+        scrolled = true;
+        var perc = (text.scrollTop / text.scrollHeight);
+        html.scrollTop = html.scrollHeight * perc;
+      }
+
+      function updateMDScroll(e) {
+        e.preventDefault();
+        if(scrolled) {
+          scrolled = false;
+          return true;
+        }
+        scrolled = true;
+        var perc = (html.scrollTop / html.scrollHeight);
+        text.scrollTop = text.scrollHeight * perc;
+      }
+
+      function toggleHTML() {
+        if(html.parentNode.style.display == "none") {
+          html.parentNode.style.display = '';
+          text.parentNode.style.width = '';
+          text.parentNode.parentNode.style.width = '';
+          text.style.width = '';
+          collapseHandle.innerHTML = "&#9654;";
+        } else {
+          html.parentNode.style.display = 'none';
+          text.parentNode.style.width = '986px';
+          text.parentNode.parentNode.style.width = '986px';
+          text.style.width = '982px';
+          collapseHandle.innerHTML = "&#9664;";
+        }
+      }
+
+      text.addEventListener('keyup', updateHTML);
+      text.addEventListener('scroll', updateHTMLScroll);
+      html.addEventListener('scroll', updateMDScroll);
+      collapseHandle.addEventListener('click', toggleHTML);
+
+      html.style.height = text.offsetHeight + 'px';
+    </script>
+  </body>
+</html>
