@@ -68,11 +68,36 @@ $.fn.mdEditor = function() {
     }, 1000);
   }
 
+  // TODO: images, lists, underbar, strike-through, header levels, tables
+  function workControls() {
+    var $this = $(this);
+    switch($this.data('action')) {
+      case 'bold':
+        text.surroundSelectedText('__', '__');
+        break;
+      case 'italic':
+        text.surroundSelectedText('*', '*');
+        break;
+      case 'link':
+        var url = prompt("URL for link:");
+        text.surroundSelectedText('[', '](' + url + ')');
+        break;
+      case 'header':
+        text.surroundSelectedText('## ', '');
+        break;
+      default:
+        break;
+    }
+    updateHTML();
+  }
+
   text.keyup(updateHTML);
   text.scroll(updateHTMLScroll);
   text.mousemove(updateControls);
   html.scroll(updateMDScroll);
   collapseHandle.click(toggleHTML);
+  controls.hover(function() { window.clearTimeout(controlTimer); controlTimer = null; });
+  controls.find('a').click(workControls);
 
   html.css({ height: text.height() });
 };
