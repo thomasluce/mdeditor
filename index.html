@@ -69,13 +69,33 @@
         border: 1px solid #222;
         background-color: white;
       }
+
+      #controls {
+        position: absolute;
+        top: 10px;
+        right: 0;
+        width: 400px;
+        border: 1px solid #222;
+        border-radius: 3px;
+        height: 20px;
+        display: none;
+        background-color: white;
+      }
+      #controls:hover {
+        display: block;
+      }
     </style>
     <script type="text/javascript" src="/markdown.min.js"></script>
+    <script type="text/javascript" src="/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/rangyinputs-jquery-1.1.2.js"></script>
+    <script type="text/javascript" src="/mdeditor.js"></script>
   </head>
   <body>
     <div class="row">
       <div id="collapse">&#9654;</div>
       <div class="col">
+        <div id="controls">
+        </div>
         <div id="md"><textarea placeholder="*markdown* goes __here__"></textarea></div>
       </div>
 
@@ -84,60 +104,7 @@
       </div>
     </div>
     <script type="text/javascript">
-      var text = document.getElementById('md').childNodes[0];
-      var html = document.getElementById('html');
-      var collapseHandle = document.getElementById('collapse');
-
-      function updateHTML() {
-        var stuff = markdown.toHTML(text.value);
-        html.innerHTML = stuff;
-      }
-
-      var scrolled = false;
-      function updateHTMLScroll(e) {
-        e.preventDefault();
-        if(scrolled) {
-          scrolled = false;
-          return true;
-        }
-        scrolled = true;
-        var perc = (text.scrollTop / text.scrollHeight);
-        html.scrollTop = html.scrollHeight * perc;
-      }
-
-      function updateMDScroll(e) {
-        e.preventDefault();
-        if(scrolled) {
-          scrolled = false;
-          return true;
-        }
-        scrolled = true;
-        var perc = (html.scrollTop / html.scrollHeight);
-        text.scrollTop = text.scrollHeight * perc;
-      }
-
-      function toggleHTML() {
-        if(html.parentNode.style.display == "none") {
-          html.parentNode.style.display = '';
-          text.parentNode.style.width = '';
-          text.parentNode.parentNode.style.width = '';
-          text.style.width = '';
-          collapseHandle.innerHTML = "&#9654;";
-        } else {
-          html.parentNode.style.display = 'none';
-          text.parentNode.style.width = '986px';
-          text.parentNode.parentNode.style.width = '986px';
-          text.style.width = '982px';
-          collapseHandle.innerHTML = "&#9664;";
-        }
-      }
-
-      text.addEventListener('keyup', updateHTML);
-      text.addEventListener('scroll', updateHTMLScroll);
-      html.addEventListener('scroll', updateMDScroll);
-      collapseHandle.addEventListener('click', toggleHTML);
-
-      html.style.height = text.offsetHeight + 'px';
+      $('.row').mdEditor();
     </script>
   </body>
 </html>
