@@ -9,7 +9,7 @@ $.fn.mdEditor = function() {
   var controls = $('#controls');
 
   function updateHTML() {
-    var stuff = markdown.toHTML(text.val());
+    var stuff = marked(text.val());
     html.html(stuff);
   }
 
