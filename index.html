@@ -44,7 +44,6 @@
       #html {
         overflow: auto;
         border: 0;
-        margin-left: -4px;
         border: 1px solid #222;
         border-left: 0px solid;
         z-index: 1;
@@ -56,7 +55,7 @@
         height: 32px;
         width: 32px;
         top: 10px;
-        left: 954px;
+        left: 950px;
         z-index: 2;
         text-align: center;
         line-height: 32px;
@@ -108,22 +107,10 @@
     <script type="text/javascript" src="/mdeditor.js"></script>
   </head>
   <body>
-    <div class="row">
-      <div id="collapse">&#9654;</div>
-      <div class="col">
-        <div id="controls">
-          <a class="control" href="#" data-action="bold"><b>B</b></a>
-          <a class="control" href="#" data-action="italic"><em>I</em></a>
-          <a class="control" href="#" data-action="link">&lt;a&gt;</a>
-          <a class="control" href="#" data-action="header"><b>H</b></a>
-        </div>
-        <div id="md"><textarea placeholder="*markdown* goes __here__"></textarea></div>
-      </div>
-
-      <div class="col">
-        <div id="html"><em>markdown</em> goes <b>here</b></div>
-      </div>
-    </div>
+    <!-- TODO: move the styling to the plugin -->
+    <!-- TODO: make this operate on an existing textarea -->
+    <!-- TODO: when that is done, make sure that that textarea is the value that actually gets submitted in a form submission, for example -->
+    <div class="row"></div>
     <script type="text/javascript">
       $('.row').mdEditor();
     </script>

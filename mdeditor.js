@@ -3,10 +3,54 @@ $.fn.scrollHeight = function() {
 };
 
 $.fn.mdEditor = function() {
-  var text = $('#md textarea');
-  var html = $('#html');
-  var collapseHandle = $('#collapse');
-  var controls = $('#controls');
+  var text;
+  var html;
+  var collapseHandle;
+  var controls;
+
+  var element = $(this);
+  var container;
+
+  function __controlButton(action, text) {
+    return $('<a href="#" class="control" data-action="' + action + '">' + text + '</a>');
+  }
+
+  function __init() {
+    container = $('<div class="row"></div>');
+    container.css({
+      position: 'absolute',
+      height: element.height(),
+      width: element.width(),
+      top: element.position().top,
+      left: element.position().left
+    });
+    element.replaceWith(container);
+
+    controls = $('<div id="controls">');
+    controls.append(__controlButton('bold', '<b>B</b>'));
+    controls.append(__controlButton('italic', '<em>I</em>'));
+    controls.append(__controlButton('link', '&lt;a&gt;'));
+    controls.append(__controlButton('header', '<b>H</b>'));
+
+    collapseHandle = $('<div id="collapse">&#9654;</div>');
+
+    var md = $('<div id="md">');
+    text = $('<textarea placeholder="*markdown* goes __here__"></textarea>"');
+    md.append(text);
+
+    html = $('<div id="html"><em>markdown</em> goes <b>here</b></div>');
+
+    var col1 = $('<div class="col"></div>');
+    var col2 = $('<div class="col"></div>');
+
+    col1.append(controls);
+    col1.append(md);
+    col2.append(html);
+
+    container.append(collapseHandle);
+    container.append(col1);
+    container.append(col2);
+  }
 
   function updateHTML() {
     var stuff = marked(text.val());
@@ -91,6 +135,7 @@ $.fn.mdEditor = function() {
     updateHTML();
   }
 
+  __init();
   text.keyup(updateHTML);
   text.scroll(updateHTMLScroll);
   text.mousemove(updateControls);
