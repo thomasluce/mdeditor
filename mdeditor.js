@@ -38,6 +38,7 @@ $.fn.mdEditor = function() {
 
     var md = $('<div id="md">');
     text = $('<textarea placeholder="*markdown* goes __here__"></textarea>"');
+    text.attr('name', element.attr('name'));
     md.append(text);
 
     html = $('<div id="html"><em>markdown</em> goes <b>here</b></div>');
@@ -146,5 +147,5 @@ $.fn.mdEditor = function() {
   controls.hover(function() { window.clearTimeout(controlTimer); controlTimer = null; });
   controls.find('a').click(workControls);
 
-  html.css({ height: text.height() });
+  this.val = function() { return text.value; }
 };
