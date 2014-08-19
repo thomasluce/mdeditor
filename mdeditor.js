@@ -15,7 +15,9 @@ $.fn.mdEditor = function() {
     return $('<a href="#" class="control" data-action="' + action + '">' + text + '</a>');
   }
 
+  // TODO: make a good bit of this stuff configurable.
   function __init() {
+    $('head').append($('<link rel="stylesheet" href="/mdeditor.css" />'));
     container = $('<div class="row"></div>');
     container.css({
       position: 'absolute',
