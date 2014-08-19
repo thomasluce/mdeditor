@@ -33,6 +33,11 @@ $.fn.mdEditor = function() {
     controls.append(__controlButton('italic', '<em>I</em>'));
     controls.append(__controlButton('link', '&lt;a&gt;'));
     controls.append(__controlButton('header', '<b>H</b>'));
+    controls.append(__controlButton('image', '<small>img</small>'));
+    controls.append(__controlButton('bullet', '&bull;'));
+    controls.append(__controlButton('ordered', '1.'));
+    controls.append(__controlButton('strike', '<strike>S</strike>'));
+    controls.append(__controlButton('underline', '<u>U</u>'));
 
     collapseHandle = $('<div class="collapse">&#9654;</div>');
 
@@ -115,7 +120,6 @@ $.fn.mdEditor = function() {
     }, 1000);
   }
 
-  // TODO: images, lists, underbar, strike-through, header levels, tables
   function workControls() {
     var $this = $(this);
     switch($this.data('action')) {
@@ -131,6 +135,41 @@ $.fn.mdEditor = function() {
         break;
       case 'header':
         text.surroundSelectedText('## ', '');
+        break;
+      case 'image':
+        // TODO: optional image retrieval/uploading integration
+        var url = prompt("Image URL:");
+        text.surroundSelectedText("![", "](" + url + ")");
+        break;
+      case 'bullet':
+        var sel = text.getSelection();
+        if(sel.text != '') {
+          var items = sel.text.split(/\r|\n/);
+          for(var i = 0; i < items.length; i++) {
+            items[i] = "* " + items[i];
+          }
+          text.replaceSelectedText("\n" + items.join("\n"));
+        } else {
+          text.replaceSelectedText("\n* ");
+        }
+        break;
+      case 'ordered':
+        var sel = text.getSelection();
+        if(sel.text != '') {
+          var items = sel.text.split(/\r|\n/);
+          for(var i = 0; i < items.length; i++) {
+            items[i] = "1. " + items[i];
+          }
+          text.replaceSelectedText("\n" + items.join("\n"));
+        } else {
+          text.replaceSelectedText("\n1. ");
+        }
+        break;
+      case 'strike':
+        text.surroundSelectedText('~~', '~~');
+        break;
+      case 'underline':
+        text.surroundSelectedText('<u>', '</u>');
         break;
       default:
         break;
