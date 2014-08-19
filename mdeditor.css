@@ -1,13 +1,11 @@
-/* TODO: All the classes and ids need to change; these are terribly picked
- * names for anything that might go into another project... */
-.row {
+.md-editor-container {
   width: 1024px;
   height: 100%;
   min-height: 768px;
   position: relative;
 }
 
-.row .col {
+.md-editor-container .col {
   display: inline-block;
   margin: 0;
   padding: 10px 0 10px 0;
@@ -18,36 +16,36 @@
   min-height: 768px;
 }
 
-#md, #html {
+.md-editor-container .md, .md-editor-container .html {
   height: 100%;
   min-height: 768px;
 }
 
-#md {
+.md-editor-container .md {
   border: 1px solid #222;
 }
 
-#md textarea {
+.md-editor-container .md textarea {
   min-height: 756px;
   width: 482px;
   border: 0;
 }
 
-#md textarea:active, #md textarea:focus {
+.md-editor-container .md textarea:active, .md-editor-container .md textarea:focus {
   border: 0;
   outline: 0;
 }
 
-#html {
+.md-editor-container .html {
   overflow: auto;
   border: 0;
   border: 1px solid #222;
   border-left: 0px solid;
   z-index: 1;
 }
-#html > * { margin-top: 0; }
+.md-editor-container .html > * { margin-top: 0; }
 
-#collapse {
+.md-editor-container .collapse {
   position: absolute;
   height: 32px;
   width: 32px;
@@ -57,16 +55,16 @@
   text-align: center;
   line-height: 32px;
   vertical-align: middle;
-  border: 1px solid #ddd;
+  border: 1px solid .md-editor-container .ddd;
   background-color: rgba(256,256,256,0.7);
 }
-#collapse:hover {
+.md-editor-container .collapse:hover {
   cursor: pointer;
   border: 1px solid #222;
   background-color: white;
 }
 
-#controls {
+.md-editor-container .controls {
   position: absolute;
   top: 10px;
   right: 0;
@@ -77,11 +75,11 @@
   display: none;
   background-color: white;
 }
-#controls:hover {
+.md-editor-container .controls:hover {
   display: block;
 }
 
-#controls a.control {
+.md-editor-container .controls a.control {
   display: inline-block;
   width: 32px;
   height: 32px;
@@ -94,6 +92,6 @@
   text-decoration: none;
   vertical-align: middle;
 }
-#controls a.control:hover {
+.md-editor-container .controls a.control:hover {
   text-decoration: none;
 }

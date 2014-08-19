@@ -16,10 +16,9 @@ $.fn.mdEditor = function() {
     return $('<a href="#" class="control" data-action="' + action + '">' + text + '</a>');
   }
 
-  // TODO: make a good bit of this stuff configurable.
   function __init() {
     $('head').append($('<link rel="stylesheet" href="/mdeditor.css" />'));
-    container = $('<div class="row"></div>');
+    container = $('<div class="md-editor-container"></div>');
     container.css({
       position: 'absolute',
       height: element.height(),
@@ -29,20 +28,20 @@ $.fn.mdEditor = function() {
     });
     element.replaceWith(container);
 
-    controls = $('<div id="controls">');
+    controls = $('<div class="controls">');
     controls.append(__controlButton('bold', '<b>B</b>'));
     controls.append(__controlButton('italic', '<em>I</em>'));
     controls.append(__controlButton('link', '&lt;a&gt;'));
     controls.append(__controlButton('header', '<b>H</b>'));
 
-    collapseHandle = $('<div id="collapse">&#9654;</div>');
+    collapseHandle = $('<div class="collapse">&#9654;</div>');
 
-    var md = $('<div id="md">');
+    var md = $('<div class="md">');
     text = $('<textarea placeholder="*markdown* goes __here__"></textarea>"');
     text.attr('name', element.attr('name'));
     md.append(text);
 
-    html = $('<div id="html"><em>markdown</em> goes <b>here</b></div>');
+    html = $('<div class="html"><em>markdown</em> goes <b>here</b></div>');
 
     var col1 = $('<div class="col"></div>');
     var col2 = $('<div class="col"></div>');
